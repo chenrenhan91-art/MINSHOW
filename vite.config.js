@@ -14,7 +14,7 @@ function spaFallback() {
 }
 
 export default defineConfig({
-  base: process.env.GITHUB_PAGES === "true" ? "/MINSHOW/" : "/",
+  base: "/",
   plugins: [react(), spaFallback()],
   server: {
     host: true,
