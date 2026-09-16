@@ -1,4 +1,4 @@
-import { BRAND } from "../brand";
+import { BRAND, openInboxMail } from "../brand";
 
 export default function Contact() {
   return (
@@ -34,7 +34,11 @@ export default function Contact() {
         style={{ marginTop: 28 }}
         onSubmit={(e) => {
           e.preventDefault();
-          alert("Thank you. We will get back to you shortly.");
+          const fd = new FormData(e.currentTarget);
+          openInboxMail({
+            subject: `MINSHOW contact from ${fd.get("name") || "website"}`,
+            body: `Name: ${fd.get("name")}\nEmail: ${fd.get("email")}\n\n${fd.get("message")}`,
+          });
           e.currentTarget.reset();
         }}
       >

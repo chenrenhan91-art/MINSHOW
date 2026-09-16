@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BRAND, HOME_COLLECTIONS } from "../brand";
+import { BRAND, HOME_COLLECTIONS, openInboxMail } from "../brand";
 
 export default function Wholesale() {
   return (
@@ -22,7 +22,20 @@ export default function Wholesale() {
         style={{ marginTop: 24 }}
         onSubmit={(e) => {
           e.preventDefault();
-          alert("Thank you. Our wholesale team will contact you.");
+          const fd = new FormData(e.currentTarget);
+          openInboxMail({
+            subject: `MINSHOW wholesale inquiry from ${fd.get("store") || "website"}`,
+            body: [
+              `Store: ${fd.get("store")}`,
+              `Contact: ${fd.get("person")}`,
+              `Email: ${fd.get("email")}`,
+              `Phone: ${fd.get("phone")}`,
+              `Business type: ${fd.get("type")}`,
+              `Category: ${fd.get("category")}`,
+              `Quantity: ${fd.get("qty")}`,
+              `Notes: ${fd.get("notes") || ""}`,
+            ].join("\n"),
+          });
           e.currentTarget.reset();
         }}
       >

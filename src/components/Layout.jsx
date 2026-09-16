@@ -10,7 +10,7 @@ import {
   User,
   X,
 } from "@phosphor-icons/react";
-import { ANNOUNCEMENTS, BRAND, NAV, SUPPORT_NAV, asset, money } from "../brand";
+import { ANNOUNCEMENTS, BRAND, NAV, SUPPORT_NAV, asset, money, openInboxMail } from "../brand";
 import { useStore } from "../store";
 
 function Logo() {
@@ -144,8 +144,12 @@ export default function Layout({ children }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            const fd = new FormData(e.currentTarget);
+            openInboxMail({
+              subject: "MINSHOW newsletter subscribe",
+              body: `Please subscribe: ${fd.get("email")}`,
+            });
             e.currentTarget.reset();
-            alert("Thank you for subscribing.");
           }}
         >
           <input type="email" name="email" placeholder="Email" required />

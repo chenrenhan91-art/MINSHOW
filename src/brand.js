@@ -12,7 +12,8 @@ export const BRAND = {
   phone: "+852 96915310",
   phoneHref: "tel:+85296915310",
   email: "support@minshowonline.com",
-  emailHref: "mailto:support@minshowonline.com",
+  inbox: "kinopayment@outlook.com",
+  emailHref: "mailto:kinopayment@outlook.com",
   address: [
     "M10, ROOM 1017, 10/F, WING HING",
     "INDUSTRIAL BUILDING, NO.83-93",
@@ -20,6 +21,16 @@ export const BRAND = {
     "HONG KONG",
   ],
 };
+
+export function openInboxMail({ subject, body }) {
+  const query = [
+    subject && `subject=${encodeURIComponent(subject)}`,
+    body && `body=${encodeURIComponent(body)}`,
+  ]
+    .filter(Boolean)
+    .join("&");
+  window.location.href = `mailto:${BRAND.inbox}${query ? `?${query}` : ""}`;
+}
 
 export const ANNOUNCEMENTS = [
   "10% Off for First Purchase! Code: NEW10",
